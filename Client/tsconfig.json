@@ -1,0 +1,22 @@
+{
+	"extends": "../tsconfig.common.json",
+	"compilerOptions": {
+		"noEmit": false,
+		"outDir": "./out",
+		"rootDir": "./src",
+		"declaration": true,
+		"declarationMap": true,
+		"composite": false,
+		"resolveJsonModule": true,
+		"moduleResolution": "bundler",
+		"module": "Preserve",
+
+		"lib": [
+			"ES2023",
+			"DOM"
+		],
+		"types": [],
+		"jsx": "react",
+	},
+	"include": ["./src/**/*"]
+}

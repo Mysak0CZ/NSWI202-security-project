@@ -1,0 +1,150 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "pnpm install",
+			"type": "process",
+			"command": "pnpm",
+			"windows": {
+				"command": "pnpm.cmd"
+			},
+			"args": [
+				"install",
+				"--frozen-lockfile"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}",
+				"env": {
+					"COREPACK_ENABLE_DOWNLOAD_PROMPT": "0"
+				}
+			},
+			"group": "none",
+			"problemMatcher": []
+		},
+		{
+			"label": "Build",
+			"type": "npm",
+			"script": "build",
+			"options": {
+				"env": {
+					"COREPACK_ENABLE_DOWNLOAD_PROMPT": "0"
+				}
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": "$tsc"
+		},
+		{
+			"label": "dev: Server",
+			"type": "npm",
+			"script": "dev",
+			"path": "Server",
+			"options": {
+				"env": {
+					"COREPACK_ENABLE_DOWNLOAD_PROMPT": "0"
+				}
+			},
+			"icon": {
+				"id": "debug-alt"
+			},
+			"isBackground": true,
+			"promptOnClose": false,
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "dedicated",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": {
+				"base": "$tsc",
+				"source": "tsc:Server",
+				"fileLocation": [
+					"relative",
+					"${workspaceFolder}/Server"
+				],
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": " File change detected\\. Starting incremental compilation\\.\\.\\.",
+					"endsPattern": " Watching for file changes\\."
+				}
+			}
+		},
+		{
+			"label": "dev: Client",
+			"type": "npm",
+			"script": "dev",
+			"path": "Client",
+			"options": {
+				"env": {
+					"COREPACK_ENABLE_DOWNLOAD_PROMPT": "0"
+				}
+			},
+			"icon": {
+				"id": "debug-alt"
+			},
+			"isBackground": true,
+			"promptOnClose": true,
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "dedicated",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"problemMatcher": {
+				"owner": "Webpack",
+				"source": "webpack:Client",
+				"fileLocation": "absolute",
+				"pattern": [
+					{
+						"regexp": "ERROR in ([^\\(]*)\\((\\d+),(\\d+)\\):?",
+						"file": 1,
+						"line": 2,
+						"column": 3
+					},
+					{
+						"regexp": "\\s*([A-Za-z0-9-]+):(.*)",
+						"message": 2,
+						"code": 1
+					}
+				],
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "Compiler starting\\.\\.\\.",
+					"endsPattern": "(webpack [\\d.]+ compiled .+ in \\d+ ms)|(Compiler is watching files for update\\.\\.\\.)"
+				}
+			}
+		},
+		{
+			"label": "Develop all",
+			"icon": {
+				"id": "debug-all"
+			},
+			"dependsOn": [
+				"dev: Server",
+				"dev: Client"
+			],
+			"dependsOrder": "parallel",
+			"group": "none",
+			"problemMatcher": []
+		},
+		{
+			"label": "Terminate All Tasks",
+			"command": "${input:terminate}",
+			"problemMatcher": []
+		}
+	],
+	"inputs": [
+		{
+			"id": "terminate",
+			"type": "command",
+			"command": "workbench.action.tasks.terminate",
+			"args": "terminateAll"
+		}
+	]
+}

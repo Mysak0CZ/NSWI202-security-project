@@ -1,0 +1,91 @@
+{
+	"version": "0.2.0",
+	"compounds": [
+		{
+			"name": "Server + Client (Chrome)",
+			"configurations": [
+				"Server",
+				"Client (Chrome)"
+			],
+			"preLaunchTask": "Develop all",
+			"stopAll": true,
+			"presentation": {
+				"hidden": false,
+				"group": "",
+				"order": 1
+			}
+		},
+		{
+			"name": "Server + Client (Firefox)",
+			"configurations": [
+				"Server",
+				"Client (Firefox)"
+			],
+			"preLaunchTask": "Develop all",
+			"stopAll": true,
+			"presentation": {
+				"hidden": false,
+				"group": "",
+				"order": 2
+			}
+		}
+	],
+	"configurations": [
+		{
+			"name": "Client (Chrome)",
+			"request": "launch",
+			"type": "chrome",
+			"linux": {
+				"runtimeExecutable": "/usr/bin/chromium"
+			},
+			"runtimeArgs": [
+				"--incognito"
+			],
+			"url": "http://localhost:8083",
+			"webRoot": "${workspaceFolder}/Client/src",
+			"sourceMaps": true,
+			"sourceMapPathOverrides": {
+				"webpack:///./~/*": "${workspaceFolder}/Client/node_modules/*",
+				"webpack://?:*/*": "${workspaceFolder}/Client/*"
+			},
+			"skipFiles": [
+				"<node_internals>/**",
+				"**/node_modules/**",
+				"!**/node_modules/Game*/**",
+				"!**/node_modules/.pnpm/Game*/**"
+			],
+			"internalConsoleOptions": "neverOpen",
+			"preLaunchTask": "dev: Client"
+		},
+		{
+			"name": "Client (Firefox)",
+			"request": "launch",
+			"type": "firefox",
+			"reAttach": true,
+			"url": "http://localhost:8083",
+			"webRoot": "${workspaceFolder}/Client/out",
+			"pathMappings": [
+				{
+					"url": "webpack://AppClient/src",
+					"path": "${workspaceFolder}/Client/src"
+				},
+			],
+			"suggestPathMappingWizard": false,
+			"internalConsoleOptions": "neverOpen",
+			"preLaunchTask": "dev: Client"
+		},
+		{
+			"name": "Server",
+			"program": "${workspaceFolder}/Server/out/main.js",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"type": "node",
+			"cwd": "${workspaceFolder}/Server",
+			"pauseForSourceMap": true,
+			"console": "integratedTerminal",
+			"preLaunchTask": "dev: Server"
+		}
+	]
+}

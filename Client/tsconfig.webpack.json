@@ -1,0 +1,16 @@
+{
+	"extends": "../tsconfig.common.json",
+	"compilerOptions": {
+		"declaration": true,
+		"types": [
+			"@types/node"
+		]
+	},
+	"ts-node": {
+		"esm": true,
+		"experimentalSpecifierResolution": "node"
+	},
+	"include": [
+		"webpack.config.ts"
+	]
+}

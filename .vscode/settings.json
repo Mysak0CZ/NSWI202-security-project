@@ -1,0 +1,25 @@
+{
+	"editor.formatOnSave": true,
+	"editor.insertSpaces": false,
+	"editor.linkedEditing": true,
+	"editor.tabSize": 4,
+	"explorer.fileNesting.enabled": true,
+	"explorer.fileNesting.patterns": {
+		"package.json": ".gitignore, pnpm-lock.yaml, pnpm-workspace.yaml, tsconfig*.json, webpack.config.ts, eslint.config.js",
+		"*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts, ${capture}.d.ts.map"
+	},
+	"files.insertFinalNewline": true,
+	"files.eol": "\n",
+	"files.readonlyInclude": {
+		"**/node_modules/**": true,
+		"{Client,Server}/out/**": true,
+	},
+	"typescript.format.enable": true,
+	"typescript.format.semicolons": "insert",
+	"typescript.preferences.importModuleSpecifier": "relative",
+	"typescript.preferences.importModuleSpecifierEnding": "js",
+	"eslint.useFlatConfig": true,
+	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+	"npm.packageManager": "pnpm",
+}

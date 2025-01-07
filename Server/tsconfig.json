@@ -1,0 +1,16 @@
+{
+	"extends": "../tsconfig.common.json",
+	"compilerOptions": {
+		"noEmit": false,
+		"outDir": "./out",
+		"rootDir": "./src",
+		"tsBuildInfoFile": "./out/tsconfig.tsbuildinfo",
+		"lib": ["ES2023"],
+		"types": ["node"],
+		"incremental": true,
+		"declaration": true,
+		"declarationMap": true,
+		"rewriteRelativeImportExtensions": true,
+	},
+	"include": ["./src/**/*"]
+}

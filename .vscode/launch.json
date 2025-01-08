@@ -38,10 +38,7 @@
 			"linux": {
 				"runtimeExecutable": "/usr/bin/chromium"
 			},
-			"runtimeArgs": [
-				"--incognito"
-			],
-			"url": "http://localhost:8083",
+			"url": "http://localhost:8081",
 			"webRoot": "${workspaceFolder}/Client/src",
 			"sourceMaps": true,
 			"sourceMapPathOverrides": {
@@ -51,8 +48,6 @@
 			"skipFiles": [
 				"<node_internals>/**",
 				"**/node_modules/**",
-				"!**/node_modules/Game*/**",
-				"!**/node_modules/.pnpm/Game*/**"
 			],
 			"internalConsoleOptions": "neverOpen",
 			"preLaunchTask": "dev: Client"
@@ -62,7 +57,7 @@
 			"request": "launch",
 			"type": "firefox",
 			"reAttach": true,
-			"url": "http://localhost:8083",
+			"url": "http://localhost:8081",
 			"webRoot": "${workspaceFolder}/Client/out",
 			"pathMappings": [
 				{

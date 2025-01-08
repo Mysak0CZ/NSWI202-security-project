@@ -32,3 +32,100 @@ body {
 	background-color: $backgroundColor;
 	color: black;
 }
+
+.authForm {
+	border: solid black 1px;
+	padding: 1em;
+	gap: 0.25em;
+}
+
+.error {
+	color: darkred;
+	font-weight: bold;
+}
+
+.col {
+	display: flex;
+	flex-flow: column;
+	gap: 0.25em;
+}
+
+.centerbox {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.fill-x {
+	width: 100%;
+}
+
+header {
+	padding: 0.5em;
+	border-bottom: solid black 1px;
+	background-color: #aaa;
+	display: flex;
+	justify-content: space-between;
+}
+
+.notesList {
+	display: flex;
+	flex-flow: column;
+	gap: 0.5em;
+	padding: 0.5em;
+	overflow-y: scroll;
+	flex: 1;
+
+	.note {
+		border: solid black 1px;
+		border-radius: 1em;
+		display: grid;
+		padding: 0.25em;
+		gap: 0.15em;
+		grid-template:
+			"name action" 2em
+			"content action" 1.75em
+			/ 1fr max-content;
+
+		h3 {
+			margin: 0;
+			padding: 0.25em 0.5em;
+			grid-area: name;
+		}
+
+		span {
+			max-width: 95%;
+
+			grid-area: content;
+			text-overflow: ellipsis;
+			text-wrap: nowrap;
+			overflow: hidden;
+		}
+
+		button {
+			grid-area: action;
+			border-radius: 1em;
+		}
+	}
+}
+
+.noteDetails {
+	display: flex;
+	flex-flow: column;
+	gap: 0.5em;
+	padding: 0.5em;
+	width: 100%;
+	height: 100%;
+
+	> div {
+		display: flex;
+		flex-flow: row;
+		gap: 1em;
+	}
+
+	textarea {
+		height: 80%;
+		width: max(80%, min(20em, 100%));
+		resize: none;
+	}
+}

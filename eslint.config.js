@@ -1,7 +1,7 @@
 // @ts-check
 import eslintJsPlugin from "@eslint/js";
-import tsEslint from "typescript-eslint";
 import eslintStylisticPlugin from "@stylistic/eslint-plugin";
+import tsEslint from "typescript-eslint";
 
 /** @type {import("typescript-eslint").ConfigWithExtends["rules"]} */
 const baseRules = {
@@ -37,7 +37,7 @@ const baseRules = {
 		tuples: "ignore",
 	}],
 	"@stylistic/function-call-spacing": "warn",
-	"@stylistic/indent": ["warn", "tab", { flatTernaryExpressions: true }],
+	"@stylistic/indent": ["warn", "tab", { flatTernaryExpressions: true, SwitchCase: 1 }],
 	"@stylistic/jsx-curly-spacing": ["warn", { when: "always", children: true }],
 	"@stylistic/jsx-equals-spacing": "warn",
 	"@stylistic/jsx-quotes": ["warn", "prefer-double"],

@@ -1,8 +1,10 @@
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { join } from "path";
-import { Configuration, DefinePlugin, RuleSetRule, RuleSetUseItem, WebpackPluginInstance } from "webpack";
+import webpack, { Configuration, RuleSetRule, RuleSetUseItem, WebpackPluginInstance } from "webpack";
 import "webpack-dev-server";
+
+const { DefinePlugin } = webpack;
 
 const WEBPACK_PORT = 8081;
 const SERVER_ADDRESS = process.env.SERVER_ADDRESS || "http://127.0.0.1:8084";
@@ -52,6 +54,10 @@ export default function GenerateConfiguration(env: WebpackEnv): Configuration {
 				".js": [".ts", ".tsx", ".js"],
 			},
 			extensions: [".ts", ".tsx", ".js"],
+		},
+		performance: {
+			maxEntrypointSize: 512 * 1024,
+			maxAssetSize: 512 * 1024,
 		},
 		infrastructureLogging: {
 			level: "log",

@@ -1,0 +1,29 @@
+name: Deploy
+concurrency: gh_pages
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  SERVER_ADDRESS: "http://127.0.0.1:8084"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: main
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - run: corepack enable
+    - run: pnpm install --frozen-lockfile
+    - run: pnpm run build
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: Client/out
+        git-config-name: github-actions[bot]
+        git-config-email: github-actions[bot]@users.noreply.github.com

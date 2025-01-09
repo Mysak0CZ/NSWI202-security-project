@@ -12,6 +12,12 @@ export function SetupExpressRoutes(app: express.Application, db: Datastore): voi
 		res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
 		res.header("Access-Control-Expose-Headers", "Content-Length");
 		res.header("Access-Control-Allow-Headers", "Accept, Authorization, Content-Type, X-Requested-With, Range");
+
+		// Allow hosting server on a local machine
+		if (req.headers["access-control-request-private-network"]) {
+			res.header("Access-Control-Allow-Private-Network", "true");
+		}
+
 		if (req.method === "OPTIONS") {
 			res.send(200);
 		} else {

@@ -1,0 +1,14 @@
+services:
+
+  mysak-security-project-server:
+    build:
+      context: .
+      target: server
+    container_name: mysak-security-project-server
+    restart: unless-stopped
+    ports:
+      - 8084:8084
+    expose:
+      - 8084
+    environment:
+      - HTTP_PORT=8084

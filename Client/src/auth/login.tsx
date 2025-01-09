@@ -161,7 +161,7 @@ function LoginPasskey(): ReactElement {
 					invalidateSession();
 					return "Please try again...";
 				case "invalidCredentials":
-					return "Invalid username or password.";
+					return "Passkey not recognised.";
 			}
 		},
 		"",

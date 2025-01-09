@@ -5,3 +5,5 @@ export const HTTP_SSL_CERT: string = "";
 export const HTTP_SSL_KEY: string = "";
 
 Assert((!HTTP_SSL_CERT) === (!HTTP_SSL_KEY), "Either none or both of HTTP_SSL_CERT and HTTP_SSL_KEY need to be defined");
+
+export const WEBAUTH_RP_NAME = "Encrypted notepad DEMO";

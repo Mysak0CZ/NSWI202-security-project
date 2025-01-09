@@ -1,10 +1,11 @@
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { join } from "path";
-import { Configuration, RuleSetRule, RuleSetUseItem, WebpackPluginInstance } from "webpack";
+import { Configuration, DefinePlugin, RuleSetRule, RuleSetUseItem, WebpackPluginInstance } from "webpack";
 import "webpack-dev-server";
 
 const WEBPACK_PORT = 8081;
+const SERVER_ADDRESS = process.env.SERVER_ADDRESS || "http://127.0.0.1:8084";
 
 const SRC_DIR = join(import.meta.dirname, "src");
 const OUT_DIR = join(import.meta.dirname, "out");
@@ -61,6 +62,11 @@ export default function GenerateConfiguration(env: WebpackEnv): Configuration {
 function GeneratePlugins(): WebpackPluginInstance[] {
 	const plugins: WebpackPluginInstance[] = [
 		new CleanWebpackPlugin({ verbose: true }),
+		new DefinePlugin({
+			"process.env": JSON.stringify({
+				SERVER_ADDRESS,
+			}),
+		}),
 		new HtmlWebpackPlugin({
 			template: join(SRC_DIR, "index.ejs"),
 			chunks: ["index"],

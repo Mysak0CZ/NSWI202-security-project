@@ -1,1 +1,8 @@
-export const SERVER_ADDRESS: string = "http://127.0.0.1:8084";
+/* eslint-disable @typescript-eslint/naming-convention */
+declare const process: {
+	env: {
+		SERVER_ADDRESS: string;
+	};
+};
+
+export const SERVER_ADDRESS: string = process.env.SERVER_ADDRESS;

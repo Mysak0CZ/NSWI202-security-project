@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { cloneDeep } from "lodash-es";
 import { z, ZodSchema } from "zod";
 import { Datastore, User } from "../database/interface.ts";
 import { CurrentUserData, UserGetDataResponse, UserUpdateDataRequest, UserUpdateDataResponse } from "./apiTypes.ts";
@@ -9,6 +10,10 @@ export function UserDataToClientData(user: User): CurrentUserData {
 		username: user.username,
 		encryptedData: user.encryptedData,
 		dataPasswordKey: user.dataPasswordKey,
+		passkeys: user.passkeys.map((passkey) => ({
+			id: passkey.id,
+			transports: cloneDeep(passkey.transports),
+		})),
 	};
 }
 

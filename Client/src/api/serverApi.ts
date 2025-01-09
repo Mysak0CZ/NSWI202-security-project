@@ -1,4 +1,4 @@
-import { SessionInitResponse, SessionLoginPasswordRequest, SessionLoginPasswordResponse, SessionRegisterRequest, SessionRegisterResponse, SessionTerminateResponse, UserGetDataResponse, UserUpdateDataRequest, UserUpdateDataResponse } from "./apiTypes.js";
+import { SessionInitResponse, SessionLoginPasswordRequest, SessionLoginPasswordResponse, SessionLoginWebauthCompleteRequest, SessionLoginWebauthCompleteResponse, SessionLoginWebauthInitRequest, SessionLoginWebauthInitResponse, SessionRegisterRequest, SessionRegisterResponse, SessionRegisterWebauthCompleteRequest, SessionRegisterWebauthCompleteResponse, SessionRegisterWebauthInitRequest, SessionRegisterWebauthInitResponse, SessionTerminateResponse, UserGetDataResponse, UserUpdateDataRequest, UserUpdateDataResponse } from "./apiTypes.js";
 
 export class ServerApi {
 	public readonly baseAddress: string;
@@ -33,6 +33,22 @@ export class ServerApi {
 
 	userDataUpdate(session: string, update: UserUpdateDataRequest): Promise<UserUpdateDataResponse> {
 		return this._fetch<UserUpdateDataResponse>("user/data", "PATCH", session, update);
+	}
+
+	passkeyRegisterInit(session: string, data: SessionRegisterWebauthInitRequest): Promise<SessionRegisterWebauthInitResponse> {
+		return this._fetch<SessionRegisterWebauthInitResponse>("session/register/webauth/init", "POST", session, data);
+	}
+
+	passkeyRegisterComplete(session: string, data: SessionRegisterWebauthCompleteRequest): Promise<SessionRegisterWebauthCompleteResponse> {
+		return this._fetch<SessionRegisterWebauthCompleteResponse>("session/register/webauth/complete", "POST", session, data);
+	}
+
+	passkeyLoginInit(session: string, data: SessionLoginWebauthInitRequest): Promise<SessionLoginWebauthInitResponse> {
+		return this._fetch<SessionLoginWebauthInitResponse>("session/login/webauth/init", "POST", session, data);
+	}
+
+	passkeyLoginComplete(session: string, data: SessionLoginWebauthCompleteRequest): Promise<SessionLoginWebauthCompleteResponse> {
+		return this._fetch<SessionLoginWebauthCompleteResponse>("session/login/webauth/complete", "POST", session, data);
 	}
 
 	private async _fetch<TResponse>(endpoint: string, method: string, session: string | undefined, body?: unknown): Promise<TResponse> {

@@ -16,6 +16,7 @@ export class InMemoryDatabase implements Datastore {
 			id,
 			secret: nanoid(),
 			currentUser: null,
+			pendingChallenge: null,
 			started: Date.now(),
 		};
 		this._sessions.set(id, data);
@@ -36,7 +37,7 @@ export class InMemoryDatabase implements Datastore {
 
 		const newData: Session = {
 			...currentData,
-			...data,
+			...cloneDeep(data),
 			id,
 		};
 		this._sessions.set(id, newData);
@@ -57,7 +58,7 @@ export class InMemoryDatabase implements Datastore {
 		if (this._users.has(key))
 			return Promise.resolve(false);
 
-		this._users.set(key, data);
+		this._users.set(key, cloneDeep(data));
 
 		return Promise.resolve(true);
 	}
@@ -78,7 +79,7 @@ export class InMemoryDatabase implements Datastore {
 
 		const newData: User = {
 			...currentData,
-			...data,
+			...cloneDeep(data),
 			username: currentData.username,
 		};
 		this._users.set(key, newData);
@@ -91,6 +92,14 @@ export class InMemoryDatabase implements Datastore {
 		this._users.delete(key);
 
 		return Promise.resolve();
+	}
+
+	userGetByPasskeyId(id: string, rpID: string): Promise<User | null> {
+		for (const user of this._users.values()) {
+			if (user.passkeys.some((passkey) => passkey.id === id && passkey.rpID === rpID))
+				return Promise.resolve(user);
+		}
+		return Promise.resolve(null);
 	}
 	//#endregion
 }

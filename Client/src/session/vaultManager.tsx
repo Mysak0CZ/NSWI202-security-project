@@ -6,6 +6,7 @@ import { ACCOUNT_MASTER_KEY_SALT, VaultCrypto } from "../crypto.js";
 import { NotesList } from "../notes/notes.js";
 import { Assert, AssertFail } from "../utilities.js";
 import { useSessionContext } from "./sessionManager.js";
+import { Settings } from "./settings.js";
 import { useUserDataContext } from "./userDataManager.js";
 
 const VaultNoteSechema = z.object({
@@ -54,6 +55,7 @@ export function VaultManager({ userData, masterKey }: {
 	const { sessionId, invalidateSession } = useSessionContext();
 	const { updateUserData } = useUserDataContext();
 	const [decodedData, setDecodedData] = useState<VaultData | undefined>(undefined);
+	const [openSettings, setOpenSettings] = useState<boolean>(false);
 
 	useEffect(() => {
 		let pending = true;
@@ -131,11 +133,30 @@ export function VaultManager({ userData, masterKey }: {
 		<ReactVaultContext.Provider value={ context }>
 			<header>
 				<span>Logged in as { userData.username }</span>
-				<button onClick={ logout }>
-					Logout
-				</button>
+				<div>
+					<button onClick={ () => {
+						setOpenSettings(true);
+					} }>
+						Settings
+					</button>
+					<button onClick={ logout }>
+						Logout
+					</button>
+				</div>
 			</header>
-			<NotesList />
+			{
+				openSettings ? (
+					<Settings
+						masterKey={ masterKey }
+						userData={ userData }
+						close={ () => {
+							setOpenSettings(false);
+						} }
+					/>
+				) : (
+					<NotesList />
+				)
+			}
 		</ReactVaultContext.Provider>
 	);
 }

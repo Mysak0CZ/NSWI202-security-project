@@ -1,5 +1,3 @@
-export const ACCOUNT_MASTER_KEY_SALT = "master-key:";
-
 const CRYPTO_NAME = "AES-GCM";
 const CRYPTO_LENGTH = 256;
 const KEY_USAGES: readonly KeyUsage[] = ["encrypt", "decrypt", "wrapKey", "unwrapKey"];
@@ -8,6 +6,9 @@ const PBKDF2_PARAMS = { name: "PBKDF2", iterations: 100_000, hash: "SHA-512" } a
 const SubtleCrypto = globalThis.crypto.subtle;
 const Encoder = new TextEncoder();
 const Decoder = new TextDecoder();
+
+export const ACCOUNT_MASTER_KEY_SALT = "master-key:";
+export const ACCOUNT_MASTER_KEY_PASSKEY_SALT = Encoder.encode("master-key-passkey");
 
 export function BytesToBase64(array: Uint8Array): string {
 	return btoa(String.fromCharCode(...Array.from(array)));
@@ -102,8 +103,8 @@ export class VaultCrypto {
 		return new VaultCrypto(key);
 	}
 
-	public static async derive(password: string, salt: Uint8Array | string): Promise<VaultCrypto> {
-		const pbkdf2 = await SubtleCrypto.importKey("raw", Encoder.encode(password), { name: "PBKDF2" }, false, ["deriveKey"]);
+	public static async derive(password: string | Uint8Array, salt: Uint8Array | string): Promise<VaultCrypto> {
+		const pbkdf2 = await SubtleCrypto.importKey("raw", typeof password === "string" ? Encoder.encode(password) : password, { name: "PBKDF2" }, false, ["deriveKey"]);
 		const key = await SubtleCrypto.deriveKey(
 			{
 				...PBKDF2_PARAMS,

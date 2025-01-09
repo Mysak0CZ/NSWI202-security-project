@@ -37,7 +37,7 @@ export function RegisterForm({ setPage }: AuthPageProps): ReactElement {
 			switch (result.result) {
 				case "ok":
 					updateUserData(result.userData);
-					setMasterKey(await VaultCrypto.import(dataPasswordKey, await CreateWrappingKeyFromPassword(password), false));
+					setMasterKey(await VaultCrypto.import(dataPasswordKey, await CreateWrappingKeyFromPassword(password), true));
 					return "";
 				case "invalidSession":
 					invalidateSession();

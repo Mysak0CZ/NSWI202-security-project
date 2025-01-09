@@ -46,7 +46,7 @@ export default function GenerateConfiguration(env: WebpackEnv): Configuration {
 		output: {
 			path: OUT_DIR,
 			filename: `[name]${ env.prod ? ".[chunkhash]" : "" }.js`,
-			publicPath: "/",
+			publicPath: "auto",
 		},
 		plugins: GeneratePlugins(),
 		resolve: {
